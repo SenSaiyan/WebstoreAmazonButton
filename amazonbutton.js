@@ -1,4 +1,5 @@
 function AmazonAffiliate() {
+	//HTML Goal:
 	/* <span class="a-button a-button-primary a-button-icon">
 	    <a target="_blank" href="https://www.amazon.com/gp/aws/cart/add.html?AWSAccessKeyId=AKIAI3WW6Y5EI2PSNIKA&AssociateTag=amerinatiosta-20&ASIN.1=1932828729&Quantity.1=1" style="text-decoration:none;">
 	        <span class="a-button-inner">
@@ -9,27 +10,37 @@ function AmazonAffiliate() {
 	    </a>
 	</span><br>	*/
 
+	var amazonUrl = "";
+
+	//get the SKU of current product
+	var header = document.getElementsByClassName("ws-ga-product u-link-v5 g-color-primary");
+	console.log(header);
+
 	//connect to SKU to ASIN json
+	//https://www.taniarascia.com/how-to-connect-to-an-api-with-javascript/
+	var JSONUrl = "https://google.com"; //change to location of uploaded SKUtoASIN.json
 	var request = new XMLHttpRequest();
-	
-	xmlhttp.onreadystatechange = function() {
-	  if (this.readyState == 4 && this.status == 200) {
-	    var myObj = JSON.parse(this.responseText);
-	    document.getElementById("demo").innerHTML = myObj.name;
-	  }
+	request.open('GET', JSONUrl, true);
+	request.onload = function() {
+		var data = JSON.parse(this.response);
+		if (request.status < 400 && request.status >= 200) {
+			try (data.hasOwnProperty(header)){
+				amazonUrl = "https://www.amazon.com/gp/aws/cart/add.html?AWSAccessKeyId=AKIAI3WW6Y5EI2PSNIKA&AssociateTag=amerinatiosta-20&ASIN.1=" + data[header]
+					+ "&Quantity.1=1";
+			}
+		}
 	};
 
-	var associateTag = "amerinatiosta-20";
-	var accessKay = "AKIAI3WW6Y5EI2PSNIKA";
-	var secretKey = "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";
-	var webstoreURL = ((window.location.href).split("/"))[-1]; //gets last part of current URL by splitting string into an array by "/" and calling the last index of the array
+	// var associateTag = "amerinatiosta-20";
+	// var accessKay = "AKIAI3WW6Y5EI2PSNIKA";
+	// var secretKey = "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";
 
 	var spanPrimary = document.createElement("span");
 	spanPrimary["class"] = "a-button a-button-primary a-button-icon";
 
 	var a = document.createElement("a");
 	a["target"] = "_blank";
-	a["href"] = "https://www.amazon.com/gp/aws/cart/add.html?AWSAccessKeyId=AKIAI3WW6Y5EI2PSNIKA&AssociateTag=amerinatiosta-20&ASIN.1=1932828729&Quantity.1=1";
+	a["href"] = amazonUrl;
 	a["style"] = "text-decoration:none;";
 
 	var spanButton = document.createElement("span");
@@ -49,6 +60,7 @@ function AmazonAffiliate() {
 	var text = document.createTextNode("Add to Cart");
 	spanText.appendChild(text);
 	
+	//append each child in bottom to top order
 	spanButton.appendChild(i);
 	spanButton.appendChild(input);
 	spanButton.appendChild(spanText);
