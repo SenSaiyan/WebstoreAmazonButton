@@ -27,7 +27,11 @@ function AmazonAffiliate() {
 			try (data.hasOwnProperty(header)){
 				amazonUrl = "https://www.amazon.com/gp/aws/cart/add.html?AWSAccessKeyId=AKIAI3WW6Y5EI2PSNIKA&AssociateTag=amerinatiosta-20&ASIN.1=" + data[header]
 					+ "&Quantity.1=1";
+			} catch(error) {
+				console.log("Could not find ASIN on Amazon")
 			}
+		} else {
+			console.log("API returned an invalid status")
 		}
 	};
 
