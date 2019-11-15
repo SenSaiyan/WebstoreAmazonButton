@@ -29,24 +29,32 @@ function AmazonAffiliate() {
 	//connect to SKU to ASIN json
 	// https://www.taniarascia.com/how-to-connect-to-an-api-with-javascript/
 	var amazonUrl = "";
-	var JSONUrl = "https://notstaging.com/SKUtoASIN.json"; //change to location of uploaded SKUtoASIN.json
+	var JSONUrl = "https://notstaging.com/SKUtoASINKeyed.json"; //need to host on webstore server
 	var request = new XMLHttpRequest();
 	request.open('GET', JSONUrl, true);
 	request.onload = function() {
-		var data = JSON.parse(request);
-		console.log("tezst")
-		if (request.status < 400 && request.status >= 200) {
-			if (data.hasOwnProperty(header)){
+		var data = request.request;
+		console.log(data);
+		// if (request.status < 400 && request.status >= 200) {
+		// 	if (data.hasOwnProperty(header)){
+		// 		console.log("data[header]: " + data[header]);
+		// 		amazonUrl = "https://www.amazon.com/gp/aws/cart/add.html?AWSAccessKeyId=AKIAI3WW6Y5EI2PSNIKA&AssociateTag=amerinatiosta-20&ASIN.1=" + data[header]
+		// 			+ "&Quantity.1=1";
+		// 			console.log("Links to: " + amazonURL);
+		// 	//} catch(error) {
+		// 	} else {
+		// 		console.log("Could not find ASIN on Amazon");
+		// 	}
+		// } else {
+		// 	console.log("API returned an invalid status");
+		// }
+		for (var i = 0; i < data.length; i++){
+			console.log(data[i]);
+			if (data[i] == header){
 				console.log("data[header]: " + data[header]);
 				amazonUrl = "https://www.amazon.com/gp/aws/cart/add.html?AWSAccessKeyId=AKIAI3WW6Y5EI2PSNIKA&AssociateTag=amerinatiosta-20&ASIN.1=" + data[header]
 					+ "&Quantity.1=1";
-					console.log("Links to: " + amazonURL);
-			//} catch(error) {
-			} else {
-				console.log("Could not find ASIN on Amazon")
 			}
-		} else {
-			console.log("API returned an invalid status")
 		}
 	}
 	request.send();
