@@ -1,15 +1,15 @@
 function AmazonAffiliate() {
-	//HTML Goal:
-	/* <span class="a-button a-button-primary a-button-icon">
-	    <a target="_blank" href="https://www.amazon.com/gp/aws/cart/add.html?AWSAccessKeyId=AKIAI3WW6Y5EI2PSNIKA&AssociateTag=amerinatiosta-20&ASIN.1=1932828729&Quantity.1=1" style="text-decoration:none;">
-	        <span class="a-button-inner">
-	            <i class="a-icon a-icon-cart"></i>
-	            <input class="a-button-input" type="submit">
-	            <span class="a-button-text" aria-hidden="true">Add to Cart</span>
-	        </span>
-	    </a>
-	</span><br>	*/
+	// <span class="a-button a-button-primary">
+    //     <a target="_blank" href="asdf" style="text-decoration:none">
+    //         <span class="a-button-inner">
+    //             <img src="https://webservices.amazon.com/scratchpad/assets/images/Amazon-Favicon-64x64.png" class="a-icon a-icon-shop-now">
+    //             <input class="a-button-input" type="submit" value="Add to cart">
+    //             <span class="a-button-text">Shop Now</span>
+    //         </span>
+    //     </a>
+    // </span>
 
+	// https://www.textfixer.com/tools/remove-line-breaks.php
 	var css = ".a-button { padding: 0; vertical-align: middle; border: 1px solid; border-color: #adb1b8 #a2a6ac #8d9096; text-align: center; overflow: hidden; text-decoration: none !important; cursor: pointer; display: inline-block; background: #d8dde6; background: #e7e9ec; border-radius: 3px; } .a-button-text { padding: 0px 10px 0px 11px; text-align: center; color: #111111; font-size: 13px; line-height: 29px; display: block; font-family: Arial, sans-serif; background-color: transparent; margin: 0; border: 0; outline: 0; white-space: nowrap; padding: 0 20px 0 39px; } .a-button-inner { display: block; position: relative; overflow: hidden; height: 29px; box-shadow: 0 1px 0 rgba(255, 255, 255, 0.6) inset; border-radius: 2px; } .a-button-input { position: absolute; z-index: 20; height: 100%; width: 100%; left: 0px; top: 0px; background-color: white; outline: 0; border: 0; overflow: visible; cursor: pointer; opacity: 0.01; filter: alpha(opacity=1); } .a-button-primary { border-color: #a88734 #9c7e31 #846a29; color: #111111; background: #f0c14b; } .a-button-primary .a-button-inner { background: #f3d078; background: -webkit-linear-gradient(top, #f7dfa5, #f0c14b); background: linear-gradient(to bottom, #f7dfa5, #f0c14b); filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f7dfa5', endColorstr='#f0c14b',GradientType=0); *zoom: 1; } .a-button-primary:hover .a-button-inner { background: #f1c860; background: -webkit-linear-gradient(top, #f5d78e, #eeb933); background: linear-gradient(to bottom, #f5d78e, #eeb933); filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f5d78e', endColorstr='#eeb933',GradientType=0); *zoom: 1; } .a-button-primary:active .a-button-inner { box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2) inset; background-color: #f0c14b; background-image: none; filter: none; } .a-button-primary:hover { border-color: #9c7e31 #90742d #786025; } .a-button-primary:active { border-color: #a88734 #9c7e31 #9c7e31; } .a-icon-cart { left: 2px; top: 2px; position: absolute; height: 25px; width: 25px; background-position: -35px -5px; background-image: url(http://g-ecx.images-amazon.com/images/G/01/amazonui/sprites/aui_sprite_0037-1x._V1_.png); background-repeat: no-repeat; background-size: 400px 600px; -webkit-background-size: 400px 600px; display: inline-block; vertical-align: top; }";
 	var head = document.head || document.getElementsByTagName('head')[0];
 	var style = document.createElement('style');
@@ -22,48 +22,39 @@ function AmazonAffiliate() {
 		style.appendChild(document.createTextNode(css));
 	}
 
-	var amazonUrl = "";
-
 	//get the SKU of current product
 	var header = document.getElementsByClassName("ws-ga-product u-link-v5 g-color-primary");
 	var headerText = header[0].textContent;
-	// console.log(header);
-	console.log("SKU: " + headerText);
 
 	//connect to SKU to ASIN json
-	//https://www.taniarascia.com/how-to-connect-to-an-api-with-javascript/
+	// https://www.taniarascia.com/how-to-connect-to-an-api-with-javascript/
+	var amazonUrl = "";
 	var JSONUrl = "https://notstaging.com/SKUtoASIN.json"; //change to location of uploaded SKUtoASIN.json
 	var request = new XMLHttpRequest();
 	request.open('GET', JSONUrl, true);
-	if (request.status < 400 && request.status >= 200) {
+	request.onload = function() {
 		var data = JSON.parse(request);
-		if (data.hasOwnProperty(header)){
-			amazonUrl = "https://www.amazon.com/gp/aws/cart/add.html?AWSAccessKeyId=AKIAI3WW6Y5EI2PSNIKA&AssociateTag=amerinatiosta-20&ASIN.1=" + data[header]
-				+ "&Quantity.1=1";
-				console.log("Links to: " + amazonURL);
-		//} catch(error) {
+		if (request.status < 400 && request.status >= 200) {
+			if (data.hasOwnProperty(header)){
+				amazonUrl = "https://www.amazon.com/gp/aws/cart/add.html?AWSAccessKeyId=AKIAI3WW6Y5EI2PSNIKA&AssociateTag=amerinatiosta-20&ASIN.1=" + data[header]
+					+ "&Quantity.1=1";
+					console.log("Links to: " + amazonURL);
+			//} catch(error) {
+			} else {
+				console.log("Could not find ASIN on Amazon")
+			}
 		} else {
-			console.log("Could not find ASIN on Amazon")
+			console.log("API returned an invalid status")
 		}
-	} else {
-		console.log("API returned an invalid status")
 	}
+	request.send();
 
 	// var associateTag = "amerinatiosta-20";
 	// var accessKay = "AKIAI3WW6Y5EI2PSNIKA";
 	// var secretKey = "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";
 
-	var ANABwebp = document.createElement("source");
-    ANABwebp["srcset"] = "https://blog.cachefly.net/wp-content/uploads/2019/10/ANAB-Logo-RGB-with-Name-Transparent-Background.webp";
-    ANABwebp["width"] = "200";
-    ANABwebp["type"] = "image/webp";
-    console.log(ANABwebp);
-
 	var spanPrimary = document.createElement("span");
-	// spanPrimary["class"] = "a-button a-button-primary a-button-icon";
 	spanPrimary.className = "a-button a-button-primary a-button-icon";
-	// spanPrimary.classList.add("a-button a-button-primary a-button-icon"); //doesn't work
-	console.log(spanPrimary);
 
 	var a = document.createElement("a");
 	a["target"] = "_blank";
