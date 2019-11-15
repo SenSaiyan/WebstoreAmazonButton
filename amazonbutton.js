@@ -34,8 +34,10 @@ function AmazonAffiliate() {
 	request.open('GET', JSONUrl, true);
 	request.onload = function() {
 		var data = JSON.parse(request);
+		console.log("tezst")
 		if (request.status < 400 && request.status >= 200) {
 			if (data.hasOwnProperty(header)){
+				console.log("data[header]: " + data[header]);
 				amazonUrl = "https://www.amazon.com/gp/aws/cart/add.html?AWSAccessKeyId=AKIAI3WW6Y5EI2PSNIKA&AssociateTag=amerinatiosta-20&ASIN.1=" + data[header]
 					+ "&Quantity.1=1";
 					console.log("Links to: " + amazonURL);
