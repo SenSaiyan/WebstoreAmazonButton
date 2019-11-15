@@ -22,7 +22,9 @@ function AmazonAffiliate() {
 
 	//get the SKU of current product
 	var header = document.getElementsByClassName("ws-ga-product u-link-v5 g-color-primary");
-	console.log(header);
+	console.log(header["outerText"]);
+	// var header = document.getElementsByClassName("h3 g-mb-15").textContent;
+	console.log("SKU: " + header);
 
 	//connect to SKU to ASIN json
 	//https://www.taniarascia.com/how-to-connect-to-an-api-with-javascript/
@@ -35,6 +37,7 @@ function AmazonAffiliate() {
 			if (data.hasOwnProperty(header)){
 				amazonUrl = "https://www.amazon.com/gp/aws/cart/add.html?AWSAccessKeyId=AKIAI3WW6Y5EI2PSNIKA&AssociateTag=amerinatiosta-20&ASIN.1=" + data[header]
 					+ "&Quantity.1=1";
+					console.log("Links to: " + amazonURL);
 			//} catch(error) {
 			} else {
 				console.log("Could not find ASIN on Amazon")
@@ -80,7 +83,7 @@ function AmazonAffiliate() {
 	a.appendChild(spanButton);
 	spanPrimary.appendChild(a);
 	rightColumn = document.getElementsByClassName("col-lg-2 g-mb-20");
-	rightColumn.appendChild(spanPrimary);
+	rightColumn[0].appendChild(spanPrimary);
 }
 
 AmazonAffiliate();
