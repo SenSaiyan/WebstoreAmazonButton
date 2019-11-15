@@ -10,6 +10,14 @@ function AmazonAffiliate() {
 	    </a>
 	</span><br>	*/
 
+	//Load CSS from external website
+	//https://www.geeksforgeeks.org/how-to-load-css-files-using-javascript/
+	//meant for local files, so might not work with URLs
+	var linkCSS = document.createElement("link");
+	linkCSS.rel = "stylesheet";
+	linkCSS.type = "text/css";
+	linkCSS.href = "https://notstaging.com/a-button.css"; //need to find a different host eventually
+
 	var amazonUrl = "";
 
 	//get the SKU of current product
@@ -18,16 +26,17 @@ function AmazonAffiliate() {
 
 	//connect to SKU to ASIN json
 	//https://www.taniarascia.com/how-to-connect-to-an-api-with-javascript/
-	var JSONUrl = "https://google.com"; //change to location of uploaded SKUtoASIN.json
+	var JSONUrl = "https://notstaging.com/SKUtoASIN.json"; //change to location of uploaded SKUtoASIN.json
 	var request = new XMLHttpRequest();
 	request.open('GET', JSONUrl, true);
 	request.onload = function() {
 		var data = JSON.parse(this.response);
 		if (request.status < 400 && request.status >= 200) {
-			try (data.hasOwnProperty(header)){
+			if (data.hasOwnProperty(header)){
 				amazonUrl = "https://www.amazon.com/gp/aws/cart/add.html?AWSAccessKeyId=AKIAI3WW6Y5EI2PSNIKA&AssociateTag=amerinatiosta-20&ASIN.1=" + data[header]
 					+ "&Quantity.1=1";
-			} catch(error) {
+			//} catch(error) {
+			} else {
 				console.log("Could not find ASIN on Amazon")
 			}
 		} else {
@@ -70,7 +79,8 @@ function AmazonAffiliate() {
 	spanButton.appendChild(spanText);
 	a.appendChild(spanButton);
 	spanPrimary.appendChild(a);
-	document.getElementsByClassName("col-lg-2 g-mb-20").appendChild(spanPrimary);
-
+	rightColumn = document.getElementsByClassName("col-lg-2 g-mb-20");
+	rightColumn.appendChild(spanPrimary);
 }
+
 AmazonAffiliate();
