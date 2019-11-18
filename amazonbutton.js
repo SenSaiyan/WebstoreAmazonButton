@@ -27,41 +27,25 @@ function AmazonAffiliate() {
 	var headerText = header[0].textContent;
 
 	//connect to SKU to ASIN json
-	// https://www.taniarascia.com/how-to-connect-to-an-api-with-javascript/
 	var amazonUrl = "";
 	var JSONUrl = "https://notstaging.com/SKUtoASINKeyed.json"; //need to host on webstore server
 	var request = new XMLHttpRequest();
 	request.open('GET', JSONUrl, true);
-	request.onload = function() {
-		var data = request.request;
-		console.log(data);
-		// if (request.status < 400 && request.status >= 200) {
-		// 	if (data.hasOwnProperty(header)){
-		// 		console.log("data[header]: " + data[header]);
-		// 		amazonUrl = "https://www.amazon.com/gp/aws/cart/add.html?AWSAccessKeyId=AKIAI3WW6Y5EI2PSNIKA&AssociateTag=amerinatiosta-20&ASIN.1=" + data[header]
-		// 			+ "&Quantity.1=1";
-		// 			console.log("Links to: " + amazonURL);
-		// 	//} catch(error) {
-		// 	} else {
-		// 		console.log("Could not find ASIN on Amazon");
-		// 	}
-		// } else {
-		// 	console.log("API returned an invalid status");
-		// }
-		for (var i = 0; i < data.length; i++){
-			console.log(data[i]);
-			if (data[i] == header){
-				console.log("data[header]: " + data[header]);
-				amazonUrl = "https://www.amazon.com/gp/aws/cart/add.html?AWSAccessKeyId=AKIAI3WW6Y5EI2PSNIKA&AssociateTag=amerinatiosta-20&ASIN.1=" + data[header]
-					+ "&Quantity.1=1";
-			}
-		}
-	}
+	request.responseType = 'json';
 	request.send();
+	request.onload = function() {
+		var data = request.response;
+		var ASIN = JSON.stringify(data[headerText][0]).split(":")[1];
+		var cutASIN = (ASIN.substring(1, ASIN.length-2));
+		amazonUrl = "https://www.amazon.com/gp/aws/cart/add.html?AWSAccessKeyId=AKIAI3WW6Y5EI2PSNIKA&AssociateTag=amerinatiosta-20&ASIN.1="
+			+ cutASIN + "&Quantity.1=1";
+		console.log(amazonUrl);
+	}
 
 	// var associateTag = "amerinatiosta-20";
 	// var accessKay = "AKIAI3WW6Y5EI2PSNIKA";
 	// var secretKey = "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";
+
 
 	var spanPrimary = document.createElement("span");
 	spanPrimary.className = "a-button a-button-primary a-button-icon";
