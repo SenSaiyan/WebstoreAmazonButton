@@ -39,7 +39,39 @@ function AmazonAffiliate() {
 		var cutASIN = (ASIN.substring(1, ASIN.length-2));
 		amazonUrl = "https://www.amazon.com/gp/aws/cart/add.html?AWSAccessKeyId=AKIAI3WW6Y5EI2PSNIKA&AssociateTag=amerinatiosta-20&ASIN.1="
 			+ cutASIN + "&Quantity.1=1";
-		console.log(amazonUrl);
+		var spanPrimary = document.createElement("span");
+		spanPrimary.className = "a-button a-button-primary a-button-icon";
+
+		var a = document.createElement("a");
+		a["target"] = "_blank";
+		a["href"] = amazonUrl;
+		a["style"] = "text-decoration:none;";
+
+		var spanButton = document.createElement("span");
+		spanButton.className = "a-button-inner";
+
+		var i = document.createElement("i");
+		i.className = "a-icon a-icon-cart";
+
+		var input = document.createElement("input");
+		input.className = "a-button-input";
+		input["type"] = "submit";
+
+		var spanText = document.createElement("span");
+		spanText.className = "a-button-text";
+		spanText["aria-hidden"] = "true";
+
+		var text = document.createTextNode("Add to Cart");
+		spanText.appendChild(text);
+		
+		//append each child in bottom to top order
+		spanButton.appendChild(i);
+		spanButton.appendChild(input);
+		spanButton.appendChild(spanText);
+		a.appendChild(spanButton);
+		spanPrimary.appendChild(a);
+		rightColumn = document.getElementsByClassName("col-lg-2 g-mb-20");
+		rightColumn[0].appendChild(spanPrimary);
 	}
 
 	// var associateTag = "amerinatiosta-20";
@@ -47,39 +79,7 @@ function AmazonAffiliate() {
 	// var secretKey = "o365sZ9qOTWq8Q1OQfgRs7NMkds2lvyc3k8EBX2o";
 
 
-	var spanPrimary = document.createElement("span");
-	spanPrimary.className = "a-button a-button-primary a-button-icon";
-
-	var a = document.createElement("a");
-	a["target"] = "_blank";
-	a["href"] = amazonUrl;
-	a["style"] = "text-decoration:none;";
-
-	var spanButton = document.createElement("span");
-	spanButton.className = "a-button-inner";
-
-	var i = document.createElement("i");
-	i.className = "a-icon a-icon-cart";
-
-	var input = document.createElement("input");
-	input.className = "a-button-input";
-	input["type"] = "submit";
-
-	var spanText = document.createElement("span");
-	spanText.className = "a-button-text";
-	spanText["aria-hidden"] = "true";
-
-	var text = document.createTextNode("Add to Cart");
-	spanText.appendChild(text);
 	
-	//append each child in bottom to top order
-	spanButton.appendChild(i);
-	spanButton.appendChild(input);
-	spanButton.appendChild(spanText);
-	a.appendChild(spanButton);
-	spanPrimary.appendChild(a);
-	rightColumn = document.getElementsByClassName("col-lg-2 g-mb-20");
-	rightColumn[0].appendChild(spanPrimary);
 }
 
 AmazonAffiliate();
