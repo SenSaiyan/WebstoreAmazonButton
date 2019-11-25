@@ -1,31 +1,31 @@
 function AmazonAffiliate() {
 	// https://webservices.amazon.com/scratchpad/index.html //amazon affilliate scratchpad link for button HTML
 
-    // var script1 = document.createElement('script');
-    // script1['src'] = "https://notstaging.com/bundle.js";
-    // document.getElementsByTagName('head')[0].appendChild(script1);
-    // var script2 = document.createElement('script');
+    // var bundleJS = document.createElement('script');
+    // bundleJS['src'] = "https://notstaging.com/bundle.js";
+    // document.getElementsByTagName('head')[0].appendChild(bundleJS);
+    // var requireJS = document.createElement('script');
     // var requireScript = document.createTextNode("require(['https://requirejs.org/docs/release/2.3.6/comments/require.js'], function() { require(['foo'], function(foo) { }); });");
-    // script2.appendChild(requireScript);
-    // document.getElementsByTagName('head')[0].appendChild(script2);
-    // var script3 = document.createElement('script');
-    // script3['src'] = "https://notstaging.com/index.js";
-    // document.getElementsByTagName('head')[0].appendChild(script3);
-    // var script4 = document.createElement('script');
-    // script4['src'] = "https://notstaging.com/utils.js";
-    // document.getElementsByTagName('head')[0].appendChild(script4);    
+    // requireJS.appendChild(requireScript);
+    // document.getElementsByTagName('head')[0].appendChild(requireJS);
+    // var apiIndex = document.createElement('script');
+    // apiIndex['src'] = "https://notstaging.com/index.js";
+    // document.getElementsByTagName('head')[0].appendChild(apiIndex);
+    // var apiUtils = document.createElement('script');
+    // apiUtils['src'] = "https://notstaging.com/utils.js";
+    // document.getElementsByTagName('head')[0].appendChild(apiUtils);    
 
-    // require() = script2; //doesn't work
+    // require() = requireJS; //doesn't work
 
     // https://www.npmjs.com/package/amazon-affiliate-api
- //    var amazon = require('amazon-product-api');
+ 	// var amazon = require('amazon-product-api');
 	// var client = amazon.createClient({
 	// 	awsId: "AKIAI3WW6Y5EI2PSNIKA", // access key id
 	// 	awsSecret: "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", //secret access key
 	// 	awsTag: "amerinatiosta-20" //associate tag
 	// });
 
-	// https://www.textfixer.com/tools/remove-line-breaks.php
+	// https://www.textfixer.com/tools/remove-line-breaks.php // in case button CSS is changed, paste new CSS into this link to format
 	var css = ".a-button { padding: 0; vertical-align: middle; border: 1px solid; border-color: #adb1b8 #a2a6ac #8d9096; text-align: center; overflow: hidden; text-decoration: none !important; cursor: pointer; display: inline-block; background: #d8dde6; background: #e7e9ec; border-radius: 3px; } .a-button-text { padding: 0px 10px 0px 11px; text-align: center; color: #111111; font-size: 13px; line-height: 29px; display: block; font-family: Arial, sans-serif; background-color: transparent; margin: 0; border: 0; outline: 0; white-space: nowrap; padding: 0 20px 0 39px; } .a-button-inner { display: block; position: relative; overflow: hidden; height: 29px; box-shadow: 0 1px 0 rgba(255, 255, 255, 0.6) inset; border-radius: 2px; } .a-button-input { position: absolute; z-index: 20; height: 100%; width: 100%; left: 0px; top: 0px; background-color: white; outline: 0; border: 0; overflow: visible; cursor: pointer; opacity: 0.01; filter: alpha(opacity=1); } .a-button-primary { border-color: #a88734 #9c7e31 #846a29; color: #111111; background: #f0c14b; } .a-button-primary .a-button-inner { background: #f3d078; background: -webkit-linear-gradient(top, #f7dfa5, #f0c14b); background: linear-gradient(to bottom, #f7dfa5, #f0c14b); filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f7dfa5', endColorstr='#f0c14b',GradientType=0); *zoom: 1; } .a-button-primary:hover .a-button-inner { background: #f1c860; background: -webkit-linear-gradient(top, #f5d78e, #eeb933); background: linear-gradient(to bottom, #f5d78e, #eeb933); filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f5d78e', endColorstr='#eeb933',GradientType=0); *zoom: 1; } .a-button-primary:active .a-button-inner { box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2) inset; background-color: #f0c14b; background-image: none; filter: none; } .a-button-primary:hover { border-color: #9c7e31 #90742d #786025; } .a-button-primary:active { border-color: #a88734 #9c7e31 #9c7e31; } .a-icon-cart { left: 2px; top: 2px; position: absolute; height: 25px; width: 25px; background-position: -35px -5px; background-image: url(http://g-ecx.images-amazon.com/images/G/01/amazonui/sprites/aui_sprite_0037-1x._V1_.png); background-repeat: no-repeat; background-size: 400px 600px; -webkit-background-size: 400px 600px; display: inline-block; vertical-align: top; }";
 	var head = document.head || document.getElementsByTagName('head')[0];
 	var style = document.createElement('style');
